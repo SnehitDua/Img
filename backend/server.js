@@ -106,6 +106,7 @@ app.post('/logout', (req, res) => {
 
 // Middleware to protect routes
 const auth = (req, res, next) => {
+  console.log('Session:', req.session);
   if (!req.session.user) return res.status(401).send({ error: 'Unauthorized' });
   next();
 };
@@ -141,7 +142,6 @@ app.get('/images', auth, async (req, res) => {
   const page = parseInt(req.query.page || '1');
   const limit = 2;
   const skip = (page - 1) * limit;
-  console.log('Session:', req.session);
 
   try {
     const images = await Image.find()
