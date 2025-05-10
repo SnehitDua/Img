@@ -141,6 +141,7 @@ app.get('/images', auth, async (req, res) => {
   const page = parseInt(req.query.page || '1');
   const limit = 2;
   const skip = (page - 1) * limit;
+  console.log('Session:', req.session);
 
   try {
     const images = await Image.find()
