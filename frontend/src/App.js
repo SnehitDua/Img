@@ -24,7 +24,8 @@ function App() {
   const [showUserListFor, setShowUserListFor] = useState(null);
   const emojiPickerRef = React.useRef(null);
   const userListPopupRef = React.useRef(null);
-
+  const sid = getCookieValue('connect.sid'); // you must parse document.cookie manually
+  localStorage.setItem('sid', sid);
 
   useEffect(() => {
     axios.get('https://bee72c8c-8785-40e4-a2bd-4dc865547bc7-dev.e1-us-east-azure.choreoapis.dev/images-app/backend/v1.0/me', {
@@ -45,7 +46,9 @@ function App() {
     const nextPage = customPage ?? page;
   
     axios.get(`https://bee72c8c-8785-40e4-a2bd-4dc865547bc7-dev.e1-us-east-azure.choreoapis.dev/images-app/backend/v1.0/images?page=${nextPage}`, {
-      withCredentials: true
+      headers: {
+        Cookie: `connect.sid=${localStorage.getItem('sid')}`
+      }
     })
     .then(async res => {
       if (res.data.length === 0) {
