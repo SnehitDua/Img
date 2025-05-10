@@ -27,7 +27,7 @@ function App() {
 
 
   useEffect(() => {
-    axios.get('https://bee72c8c-8785-40e4-a2bd-4dc865547bc7-dev.e1-us-east-azure.choreoapis.dev/images-app/backend/v1.0/me', {
+    axios.get('/images-app/backend/v1.0/me', {
       withCredentials: true
     })
       .then(res => {
@@ -44,7 +44,7 @@ function App() {
     setLoading(true);
     const nextPage = customPage ?? page;
   
-    axios.get(`https://bee72c8c-8785-40e4-a2bd-4dc865547bc7-dev.e1-us-east-azure.choreoapis.dev/images-app/backend/v1.0/images?page=${nextPage}`, {
+    axios.get(`/images-app/backend/v1.0/images?page=${nextPage}`, {
       withCredentials: true
     })
     .then(async res => {
@@ -97,7 +97,7 @@ function App() {
 
   const handleLogin = async () => {
     try {
-      await axios.post('https://bee72c8c-8785-40e4-a2bd-4dc865547bc7-dev.e1-us-east-azure.choreoapis.dev/images-app/backend/v1.0/login', form, {
+      await axios.post('/images-app/backend/v1.0/login', form, {
         withCredentials: true
       });
       setLoggedIn(true);
@@ -114,7 +114,7 @@ function App() {
     formData.append('caption', caption);
   
     try {
-      await axios.post('https://bee72c8c-8785-40e4-a2bd-4dc865547bc7-dev.e1-us-east-azure.choreoapis.dev/images-app/backend/v1.0/upload', formData, {
+      await axios.post('/images-app/backend/v1.0/upload', formData, {
         withCredentials: true
       });
       setFile(null);
@@ -132,7 +132,7 @@ function App() {
   };
 
   const logout = async () => {
-    await axios.post('https://bee72c8c-8785-40e4-a2bd-4dc865547bc7-dev.e1-us-east-azure.choreoapis.dev/images-app/backend/v1.0/logout', {
+    await axios.post('/images-app/backend/v1.0/logout', {
       withCredentials: true
     });
     setLoggedIn(false);
@@ -165,7 +165,7 @@ function App() {
   }, []);
 
   const fetchReactions = async (imageId) => {
-    const res = await axios.get(`https://bee72c8c-8785-40e4-a2bd-4dc865547bc7-dev.e1-us-east-azure.choreoapis.dev/images-app/backend/v1.0/reactions/${imageId}`, {
+    const res = await axios.get(`/images-app/backend/v1.0/reactions/${imageId}`, {
       withCredentials: true
     });
     setReactions(prev => ({ ...prev, [imageId]: res.data }));
@@ -260,7 +260,7 @@ return (
               <span
                 key={e}
                 onClick={async () => {
-                  await axios.post('https://bee72c8c-8785-40e4-a2bd-4dc865547bc7-dev.e1-us-east-azure.choreoapis.dev/images-app/backend/v1.0/react', {
+                  await axios.post('/images-app/backend/v1.0/react', {
                     imageId: img._id,
                     emoji: e,
                   });
@@ -302,7 +302,7 @@ return (
         <li key={u}>
           {u} {u === user && (
             <button onClick={async () => {
-              await axios.post('https://bee72c8c-8785-40e4-a2bd-4dc865547bc7-dev.e1-us-east-azure.choreoapis.dev/images-app/backend/v1.0/unreact', {
+              await axios.post('/images-app/backend/v1.0/unreact', {
                 imageId: img._id,
                 emoji: showUserListFor.emoji,
               });
