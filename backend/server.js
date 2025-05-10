@@ -190,7 +190,8 @@ const Reaction = mongoose.model('Reaction', new mongoose.Schema({
 
 app.post('/react', auth, async (req, res) => {
   const { imageId, emoji } = req.body;
-  const username = (await User.findById(req.session.user)).username;
+  // const username = (await User.findById(req.session.user)).username;
+  const username = req.body.user;
 
   // Remove previous reaction (only one allowed per user)
   await Reaction.deleteOne({ imageId, username });
@@ -203,7 +204,8 @@ app.post('/react', auth, async (req, res) => {
 
 app.post('/unreact', auth, async (req, res) => {
   const { imageId, emoji } = req.body;
-  const username = (await User.findById(req.session.user)).username;
+  // const username = (await User.findById(req.session.user)).username;
+  const username = req.body.user;
 
   await Reaction.deleteOne({ imageId, username, emoji });
   res.send({ message: 'Reaction removed' });

@@ -264,6 +264,7 @@ return (
                   await axios.post('https://bee72c8c-8785-40e4-a2bd-4dc865547bc7-dev.e1-us-east-azure.choreoapis.dev/images-app/backend/v1.0/react', {
                     imageId: img._id,
                     emoji: e,
+                    user: user
                   });
                   fetchReactions(img._id);
                   setShowPickerFor(null);
@@ -306,6 +307,7 @@ return (
               await axios.post('https://bee72c8c-8785-40e4-a2bd-4dc865547bc7-dev.e1-us-east-azure.choreoapis.dev/images-app/backend/v1.0/unreact', {
                 imageId: img._id,
                 emoji: showUserListFor.emoji,
+                user: user
               });
               fetchReactions(img._id);
               setShowUserListFor(null);
