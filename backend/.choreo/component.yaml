@@ -1,0 +1,10 @@
+schemaVersion: 1.0
+endpoints:
+  - name: images-backend
+    type: REST
+    context: /images-backend
+    service:
+      host: localhost
+      port: 5000
+    backend:
+      basePath: /

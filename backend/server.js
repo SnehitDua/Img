@@ -7,11 +7,12 @@ const cookieParser = require('cookie-parser');
 const bcrypt = require('bcrypt');
 
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
+const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:3000";
 
 // Middleware
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: FRONTEND_URL,
   credentials: true,
 }));
 app.use(express.json({ limit: '10mb' }));
@@ -29,7 +30,7 @@ app.use(session({
 }));
 
 // MongoDB connection
-const MONGO_URI = 'mongodb+srv://loveadmin:loveadmin@imagesdb.62kqsno.mongodb.net/OurImagesDB?retryWrites=true&w=majority&appName=ImagesDB';
+const MONGO_URI = process.env.MONGO_URI;
 mongoose.connect(MONGO_URI, {
   // useNewUrlParser: true,
   // useUnifiedTopology: true,
