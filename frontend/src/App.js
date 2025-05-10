@@ -24,6 +24,7 @@ function App() {
   const [showUserListFor, setShowUserListFor] = useState(null);
   const emojiPickerRef = React.useRef(null);
   const userListPopupRef = React.useRef(null);
+  const sessionCookie = document.cookie;
 
 
   useEffect(() => {
@@ -44,7 +45,7 @@ function App() {
     setLoading(true);
     const nextPage = customPage ?? page;
   
-    axios.get(`https://bee72c8c-8785-40e4-a2bd-4dc865547bc7-dev.e1-us-east-azure.choreoapis.dev/images-app/backend/v1.0/images?page=${nextPage}`, null, {
+    axios.get(`https://bee72c8c-8785-40e4-a2bd-4dc865547bc7-dev.e1-us-east-azure.choreoapis.dev/images-app/backend/v1.0/images?page=${nextPage}`, {
       withCredentials: true
     })
     .then(async res => {
@@ -115,7 +116,10 @@ function App() {
   
     try {
       await axios.post('https://bee72c8c-8785-40e4-a2bd-4dc865547bc7-dev.e1-us-east-azure.choreoapis.dev/images-app/backend/v1.0/upload', formData, {
-        withCredentials: true
+        withCredentials: true,
+        headers: {
+          'Cookie': sessionCookie, // Manually add the session cookie
+        }
       });
       setFile(null);
       setCaption('');
