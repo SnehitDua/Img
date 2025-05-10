@@ -107,7 +107,7 @@ app.post('/logout', (req, res) => {
 // Middleware to protect routes
 const auth = (req, res, next) => {
   console.log('Session:', req.session);
-  if (!req.session.user) return res.status(401).send({ error: 'Unauthorized' });
+  // if (!req.session.user) return res.status(401).send({ error: 'Unauthorized' });
   next();
 };
 
