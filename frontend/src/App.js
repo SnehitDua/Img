@@ -44,8 +44,8 @@ function App() {
     setLoading(true);
     const nextPage = customPage ?? page;
   
-    axios.get(`https://bee72c8c-8785-40e4-a2bd-4dc865547bc7-dev.e1-us-east-azure.choreoapis.dev/images-app/backend/v1.0/images?page=${nextPage}`, {
-      withCredentials: 'include'
+    axios.get(`https://bee72c8c-8785-40e4-a2bd-4dc865547bc7-dev.e1-us-east-azure.choreoapis.dev/images-app/backend/v1.0/images?page=${nextPage}`, null, {
+      withCredentials: true
     })
     .then(async res => {
       if (res.data.length === 0) {
