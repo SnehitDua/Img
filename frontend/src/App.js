@@ -27,7 +27,9 @@ function App() {
 
 
   useEffect(() => {
-    axios.get('http://localhost:5000/me')
+    axios.get('https://bee72c8c-8785-40e4-a2bd-4dc865547bc7-dev.e1-us-east-azure.choreoapis.dev/images-app/backend/v1.0/me', {
+      withCredentials: true
+    })
       .then(res => {
         if (res.data.loggedIn) {
           setLoggedIn(true);
@@ -42,7 +44,9 @@ function App() {
     setLoading(true);
     const nextPage = customPage ?? page;
   
-    axios.get(`http://localhost:5000/images?page=${nextPage}`)
+    axios.get(`https://bee72c8c-8785-40e4-a2bd-4dc865547bc7-dev.e1-us-east-azure.choreoapis.dev/images-app/backend/v1.0/images?page=${nextPage}`, {
+      withCredentials: 'include'
+    })
     .then(async res => {
       if (res.data.length === 0) {
         setHasMore(false);
@@ -93,11 +97,13 @@ function App() {
 
   const handleLogin = async () => {
     try {
-      await axios.post('http://localhost:5000/login', form);
+      await axios.post('https://bee72c8c-8785-40e4-a2bd-4dc865547bc7-dev.e1-us-east-azure.choreoapis.dev/images-app/backend/v1.0/login', form, {
+        withCredentials: true
+      });
       setLoggedIn(true);
       setUser(form.username); // 👈 Save username
-    } catch {
-      alert('Login failed');
+    } catch (error){
+      alert('Login failed:', error);
     }
   };
 
@@ -108,7 +114,9 @@ function App() {
     formData.append('caption', caption);
   
     try {
-      await axios.post('http://localhost:5000/upload', formData);
+      await axios.post('https://bee72c8c-8785-40e4-a2bd-4dc865547bc7-dev.e1-us-east-azure.choreoapis.dev/images-app/backend/v1.0/upload', formData, {
+        withCredentials: true
+      });
       setFile(null);
       setCaption('');
       fileInputRef.current.value = '';
@@ -124,7 +132,9 @@ function App() {
   };
 
   const logout = async () => {
-    await axios.post('http://localhost:5000/logout');
+    await axios.post('https://bee72c8c-8785-40e4-a2bd-4dc865547bc7-dev.e1-us-east-azure.choreoapis.dev/images-app/backend/v1.0/logout', {
+      withCredentials: true
+    });
     setLoggedIn(false);
     setImages([]);
     setPage(1);
@@ -155,7 +165,9 @@ function App() {
   }, []);
 
   const fetchReactions = async (imageId) => {
-    const res = await axios.get(`http://localhost:5000/reactions/${imageId}`);
+    const res = await axios.get(`https://bee72c8c-8785-40e4-a2bd-4dc865547bc7-dev.e1-us-east-azure.choreoapis.dev/images-app/backend/v1.0/reactions/${imageId}`, {
+      withCredentials: true
+    });
     setReactions(prev => ({ ...prev, [imageId]: res.data }));
   };
 
@@ -248,7 +260,7 @@ return (
               <span
                 key={e}
                 onClick={async () => {
-                  await axios.post('http://localhost:5000/react', {
+                  await axios.post('https://bee72c8c-8785-40e4-a2bd-4dc865547bc7-dev.e1-us-east-azure.choreoapis.dev/images-app/backend/v1.0/react', {
                     imageId: img._id,
                     emoji: e,
                   });
@@ -290,7 +302,7 @@ return (
         <li key={u}>
           {u} {u === user && (
             <button onClick={async () => {
-              await axios.post('http://localhost:5000/unreact', {
+              await axios.post('https://bee72c8c-8785-40e4-a2bd-4dc865547bc7-dev.e1-us-east-azure.choreoapis.dev/images-app/backend/v1.0/unreact', {
                 imageId: img._id,
                 emoji: showUserListFor.emoji,
               });
