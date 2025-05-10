@@ -24,6 +24,15 @@ function App() {
   const [showUserListFor, setShowUserListFor] = useState(null);
   const emojiPickerRef = React.useRef(null);
   const userListPopupRef = React.useRef(null);
+
+
+  function getCookieValue(name) {
+    const matches = document.cookie.match(new RegExp(
+      `(?:^|; )${name.replace(/([.$?*|{}()[\]\\/+^])/g, '\\$1')}=([^;]*)`
+    ));
+    return matches ? decodeURIComponent(matches[1]) : undefined;
+  }
+  
   const sid = getCookieValue('connect.sid'); // you must parse document.cookie manually
   localStorage.setItem('sid', sid);
 
