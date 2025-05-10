@@ -114,12 +114,13 @@ const auth = (req, res, next) => {
 // Upload image (only if logged in)
 const upload = multer({ storage: multer.memoryStorage() });
 app.post('/upload', auth, upload.single('image'), async (req, res) => {
-  const user = await User.findById(req.session.user);
+  // const user = await User.findById(req.session.user);
   const base64Image = req.file.buffer.toString('base64');
 
   const image = new Image({
     data: base64Image,
-    username: user.username,
+    // username: user.username,
+    username: req.body.user,
     caption: req.body.caption || '',
   });
 

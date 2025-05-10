@@ -112,6 +112,7 @@ function App() {
     const formData = new FormData();
     formData.append('image', file);
     formData.append('caption', caption);
+    formData.append('user', user);
   
     try {
       await axios.post('https://bee72c8c-8785-40e4-a2bd-4dc865547bc7-dev.e1-us-east-azure.choreoapis.dev/images-app/backend/v1.0/upload', formData, {
