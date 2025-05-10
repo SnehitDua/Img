@@ -26,7 +26,7 @@ app.use(session({
   cookie: {
     httpOnly: true,
     secure: false, // true if using HTTPS
-    sameSite: 'none', // Cross-origin cookies
+    sameSite: 'Lax', // Cross-origin cookies
     maxAge: 24 * 60 * 60 * 1000, // 1 day
   }
 }));
