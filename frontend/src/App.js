@@ -26,16 +26,6 @@ function App() {
   const userListPopupRef = React.useRef(null);
 
 
-  function getCookieValue(name) {
-    const matches = document.cookie.match(new RegExp(
-      `(?:^|; )${name.replace(/([.$?*|{}()[\]\\/+^])/g, '\\$1')}=([^;]*)`
-    ));
-    return matches ? decodeURIComponent(matches[1]) : undefined;
-  }
-  
-  const sid = getCookieValue('connect.sid'); // you must parse document.cookie manually
-  localStorage.setItem('sid', sid);
-
   useEffect(() => {
     axios.get('https://bee72c8c-8785-40e4-a2bd-4dc865547bc7-dev.e1-us-east-azure.choreoapis.dev/images-app/backend/v1.0/me', {
       withCredentials: true
@@ -55,9 +45,7 @@ function App() {
     const nextPage = customPage ?? page;
   
     axios.get(`https://bee72c8c-8785-40e4-a2bd-4dc865547bc7-dev.e1-us-east-azure.choreoapis.dev/images-app/backend/v1.0/images?page=${nextPage}`, {
-      headers: {
-        Cookie: `connect.sid=${localStorage.getItem('sid')}`
-      }
+      withCredentials: 'include'
     })
     .then(async res => {
       if (res.data.length === 0) {
